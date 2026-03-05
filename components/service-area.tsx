@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { MapPin } from "lucide-react"
 import { business } from "@/lib/business"
 
@@ -6,6 +7,7 @@ export function ServiceArea() {
     <section id="service-area" className="bg-secondary py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2">
+
           {/* Text */}
           <div>
             <span className="text-sm font-semibold uppercase tracking-wider text-primary">
@@ -22,15 +24,17 @@ export function ServiceArea() {
               where you are in the area, our team is ready to help.
             </p>
 
+            {/* Cities */}
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {business.serviceAreas.map((area) => (
-                <div
+                <Link
                   key={area}
-                  className="flex items-center gap-2 text-foreground/80"
+                  href={`/services/${area.toLowerCase()}`}
+                  className="flex items-center gap-2 text-foreground/80 hover:text-primary transition"
                 >
                   <MapPin className="h-4 w-4 shrink-0 text-primary" />
                   <span className="text-sm font-medium">{area}</span>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
@@ -47,6 +51,7 @@ export function ServiceArea() {
               className="w-full"
             />
           </div>
+
         </div>
       </div>
     </section>
