@@ -1,37 +1,41 @@
 import { Droplets, Phone, Mail, MapPin } from "lucide-react"
+import { business } from "@/lib/business"
 
 export function Footer() {
   return (
     <footer className="border-t border-border bg-foreground text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 py-16 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+
           {/* Brand */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
                 <Droplets className="h-5 w-5 text-primary-foreground" />
               </div>
+
               <div className="flex flex-col">
-                <span className="font-[family-name:var(--font-heading)] text-lg font-bold leading-tight">
-                  McKinney
+                <span className="text-lg font-bold leading-tight">
+                  {business.city}
                 </span>
-                <span className="font-[family-name:var(--font-heading)] text-xs font-medium uppercase tracking-wider opacity-60">
-                  Plumbing Experts
+
+                <span className="text-xs font-medium uppercase tracking-wider opacity-60">
+                  {business.name}
                 </span>
               </div>
             </div>
+
             <p className="mt-4 text-sm leading-relaxed opacity-70">
               Professional plumbing services for residential and commercial
-              properties across McKinney and North Texas.
+              properties across {business.city} and surrounding areas.
             </p>
           </div>
 
           {/* Quick links */}
           <div>
-            <h4 className="font-[family-name:var(--font-heading)] font-semibold">
-              Quick Links
-            </h4>
-            <nav className="mt-4 flex flex-col gap-2" aria-label="Footer navigation">
+            <h4 className="font-semibold">Quick Links</h4>
+
+            <nav className="mt-4 flex flex-col gap-2">
               {[
                 { label: "Services", href: "#services" },
                 { label: "Why Choose Us", href: "#why-us" },
@@ -52,18 +56,10 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-[family-name:var(--font-heading)] font-semibold">
-              Services
-            </h4>
+            <h4 className="font-semibold">Services</h4>
+
             <ul className="mt-4 flex flex-col gap-2">
-              {[
-                "Emergency Repairs",
-                "Drain Cleaning",
-                "Water Heater Service",
-                "Bathroom Remodeling",
-                "Leak Detection",
-                "Sewer Line Service",
-              ].map((service) => (
+              {business.services.map((service) => (
                 <li key={service} className="text-sm opacity-70">
                   {service}
                 </li>
@@ -73,27 +69,28 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-[family-name:var(--font-heading)] font-semibold">
-              Contact
-            </h4>
+            <h4 className="font-semibold">Contact</h4>
+
             <div className="mt-4 flex flex-col gap-3">
               <a
-                href="tel:+14695551234"
-                className="flex items-center gap-2 text-sm opacity-70 transition-opacity hover:opacity-100"
+                href={business.phoneLink}
+                className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100"
               >
                 <Phone className="h-4 w-4" />
-                (469) 555-1234
+                {business.phone}
               </a>
+
               <a
-                href="mailto:info@mckinneyplumbing.com"
-                className="flex items-center gap-2 text-sm opacity-70 transition-opacity hover:opacity-100"
+                href={`mailto:${business.email}`}
+                className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100"
               >
                 <Mail className="h-4 w-4" />
-                info@mckinneyplumbing.com
+                {business.email}
               </a>
+
               <span className="flex items-center gap-2 text-sm opacity-70">
                 <MapPin className="h-4 w-4 shrink-0" />
-                1234 Main St, McKinney, TX 75070
+                {business.address}
               </span>
             </div>
           </div>
@@ -101,7 +98,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-primary-foreground/10 pt-8 text-center text-sm opacity-50">
           <p>
-            {`\u00A9 ${new Date().getFullYear()} McKinney Plumbing Experts. All rights reserved.`}
+            © {new Date().getFullYear()} {business.name}. All rights reserved.
           </p>
         </div>
       </div>

@@ -6,30 +6,31 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { business } from "@/lib/business"
 
 const contactInfo = [
   {
     icon: Phone,
     label: "Phone",
-    value: "(469) 555-1234",
-    href: "tel:+14695551234",
+    value: business.phone,
+    href: business.phoneLink,
   },
   {
     icon: Mail,
     label: "Email",
-    value: "info@mckinneyplumbing.com",
-    href: "mailto:info@mckinneyplumbing.com",
+    value: business.email,
+    href: `mailto:${business.email}`,
   },
   {
     icon: MapPin,
     label: "Address",
-    value: "1234 Main St, McKinney, TX 75070",
+    value: business.address,
     href: null,
   },
   {
     icon: Clock,
     label: "Hours",
-    value: "24/7 Emergency Service",
+    value: business.hours,
     href: null,
   },
 ]
@@ -81,6 +82,7 @@ export function ContactForm() {
   return (
     <section id="contact" className="bg-background py-24">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
+
         <div className="mx-auto max-w-2xl text-center">
           <span className="text-sm font-semibold uppercase tracking-wider text-primary">
             Contact Us
@@ -91,12 +93,13 @@ export function ContactForm() {
           </h2>
 
           <p className="mt-4 text-lg text-muted-foreground">
-            Fill out the form below and we will get back to you within one
-            business hour, or call us anytime for immediate assistance.
+            Fill out the form below and we will get back to you shortly, or call
+            us anytime for immediate assistance.
           </p>
         </div>
 
         <div className="mt-16 grid gap-12 lg:grid-cols-5">
+
           {/* Form */}
           <div className="lg:col-span-3">
             {submitted ? (
@@ -114,10 +117,8 @@ export function ContactForm() {
                 </p>
               </div>
             ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="grid gap-6 sm:grid-cols-2"
-              >
+              <form onSubmit={handleSubmit} className="grid gap-6 sm:grid-cols-2">
+
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="firstName">First Name</Label>
                   <Input id="firstName" name="firstName" placeholder="John" required />
@@ -135,7 +136,7 @@ export function ContactForm() {
 
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" name="phone" type="tel" placeholder="(469) 555-1234" required />
+                  <Input id="phone" name="phone" type="tel" placeholder={business.phone} required />
                 </div>
 
                 <div className="flex flex-col gap-2 sm:col-span-2">
@@ -149,12 +150,11 @@ export function ContactForm() {
                     defaultValue=""
                   >
                     <option value="" disabled>Select a service</option>
-                    <option>Emergency Repair</option>
-                    <option>Drain Cleaning</option>
-                    <option>Water Heater Service</option>
-                    <option>Bathroom Remodeling</option>
-                    <option>Leak Detection</option>
-                    <option>Sewer Line Service</option>
+
+                    {business.services.map((service) => (
+                      <option key={service}>{service}</option>
+                    ))}
+
                     <option>Other</option>
                   </select>
                 </div>
@@ -166,7 +166,7 @@ export function ContactForm() {
                     id="message"
                     name="message"
                     rows={4}
-                    placeholder="Describe your plumbing issue or project..."
+                    placeholder="Describe your issue or project..."
                     required
                   />
                 </div>
@@ -202,10 +202,7 @@ export function ContactForm() {
                   </p>
 
                   {item.href ? (
-                    <a
-                      href={item.href}
-                      className="font-medium text-foreground hover:text-primary"
-                    >
+                    <a href={item.href} className="font-medium text-foreground hover:text-primary">
                       {item.value}
                     </a>
                   ) : (
@@ -218,7 +215,7 @@ export function ContactForm() {
             {/* Google Map */}
             <div className="overflow-hidden rounded-lg border">
               <iframe
-                src="https://www.google.com/maps?q=McKinney,Texas&output=embed"
+                src={`https://www.google.com/maps?q=${business.city},${business.state}&output=embed`}
                 width="100%"
                 height="250"
                 style={{ border: 0 }}
@@ -226,6 +223,7 @@ export function ContactForm() {
               ></iframe>
             </div>
           </div>
+
         </div>
       </div>
     </section>

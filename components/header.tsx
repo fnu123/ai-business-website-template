@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Phone, Menu, X, Droplets } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { business } from "@/lib/business"
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -18,23 +19,26 @@ export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
+
         {/* Logo */}
         <a href="#" className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
             <Droplets className="h-5 w-5 text-primary-foreground" />
           </div>
+
           <div className="flex flex-col">
-            <span className="font-[family-name:var(--font-heading)] text-lg font-bold leading-tight text-foreground">
-              McKinney
+            <span className="text-lg font-bold leading-tight text-foreground">
+              {business.city}
             </span>
-            <span className="font-[family-name:var(--font-heading)] text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Plumbing Experts
+
+            <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {business.name}
             </span>
           </div>
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-1 lg:flex">
           {navLinks.map((link) => (
             <a
               key={link.href}
@@ -49,14 +53,15 @@ export function Header() {
         {/* Desktop phone + CTA */}
         <div className="hidden items-center gap-4 lg:flex">
           <a
-            href="tel:+14695551234"
+            href={business.phoneLink}
             className="flex items-center gap-2 text-sm font-semibold text-foreground"
           >
             <Phone className="h-4 w-4 text-primary" />
-            (469) 555-1234
+            {business.phone}
           </a>
+
           <Button asChild>
-            <a href="#contact">Get a Quote</a>
+            <a href="#contact">{business.ctaPrimary}</a>
           </Button>
         </div>
 
@@ -76,10 +81,7 @@ export function Header() {
 
       {/* Mobile nav */}
       {mobileOpen && (
-        <nav
-          className="border-t border-border bg-background px-4 pb-6 pt-4 lg:hidden"
-          aria-label="Mobile navigation"
-        >
+        <nav className="border-t border-border bg-background px-4 pb-6 pt-4 lg:hidden">
           <div className="flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
@@ -92,16 +94,18 @@ export function Header() {
               </a>
             ))}
           </div>
+
           <div className="mt-4 flex flex-col gap-3">
             <a
-              href="tel:+14695551234"
+              href={business.phoneLink}
               className="flex items-center gap-2 px-3 text-base font-semibold text-foreground"
             >
               <Phone className="h-4 w-4 text-primary" />
-              (469) 555-1234
+              {business.phone}
             </a>
+
             <Button asChild className="w-full">
-              <a href="#contact">Get a Quote</a>
+              <a href="#contact">{business.ctaPrimary}</a>
             </Button>
           </div>
         </nav>
